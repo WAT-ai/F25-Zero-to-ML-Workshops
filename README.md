@@ -290,4 +290,4 @@ cp *.py my-scripts/
 
 
 -----
-For the next part on package managers, open the file called `PackageManagers.md`. 
+For the next part on package managers, open the file called `SetupPython.md` to install the tools you need and then `PackageManagers.md` for the workshop content. 
