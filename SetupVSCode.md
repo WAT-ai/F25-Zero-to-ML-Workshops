@@ -3,14 +3,12 @@
 _Let's setup the tools we need to access python_
 
 ## Overview
-Before we dive into Python programming in Workshop 3, let's set up a professional development environment. We'll install Python, pip (Python's package manager), VS Code (a powerful code editor), and some helpful extensions that will make your coding experience much smoother.
+Before we dive into Python programming in Workshop 3, let's set up a professional development environment. We'll install VS Code (a powerful code editor) and some helpful extensions that will make your coding experience much smoother.
 
 **Don't worry if this feels like a lot of setup** - once it's done, you'll have a development environment that professional programmers use every day! 🐍
 
 ## What We'll Install
 
-- **Python**: The programming language itself
-- **pip**: Python's package manager (for installing libraries)
 - **VS Code**: A powerful, free code editor with lots of helpful features
 - **VS Code Extensions**: Add-ons that make coding easier and more enjoyable
 
@@ -18,22 +16,9 @@ Before we dive into Python programming in Workshop 3, let's set up a professiona
 
 ### Windows with WSL2/Ubuntu
 
-If you followed Workshop 1 and have WSL2 with Ubuntu set up, here's how to install everything:
+We're assuming you followed Workshop 1 and have WSL2 with Ubuntu/Python set up.
 
-#### 1. Install Python
-```bash
-# Update your package list first
-sudo apt update
-
-# Install Python 3 and pip
-sudo apt install python3 python3-pip python3-venv
-
-# Verify installation
-python3 --version
-pip3 --version
-```
-
-#### 2. Install VS Code
+#### Install VS Code
 Here's a [video guide](https://www.youtube.com/watch?v=SyAlaukOOrQ).
 1. Download VS Code from [code.visualstudio.com](https://code.visualstudio.com/)
 2. Install it on Windows (not inside WSL)
@@ -42,26 +27,14 @@ Here's a [video guide](https://www.youtube.com/watch?v=SyAlaukOOrQ).
 
 ### macOS
 
-#### 1. Install Python
-```bash
-# Install Python using Homebrew (from Workshop 1)
-brew install python
-
-# Verify installation
-python3 --version
-pip3 --version
-```
-
-**Note:** macOS comes with Python pre-installed, but it's often an older version. Using Homebrew ensures you get the latest version.
-
-#### 2. Install VS Code
+#### Install VS Code
 1. Download VS Code from [code.visualstudio.com](https://code.visualstudio.com/)
 2. Drag the downloaded app to your Applications folder
 3. Open VS Code from Applications or Spotlight search
 
 ### Alternative: Using Replit (No Installation Required)
 
-If you prefer not to install WSL2 or want to get started immediately, **Replit** is an online development environment that runs in your browser:
+If you prefer not to install VSCode or want to get started immediately, **Replit** is an online development environment that runs in your browser:
 
 ### Setting Up Python in Replit:
 
@@ -155,18 +128,6 @@ code
 
 Let's verify everything is working correctly:
 
-### Test Python Installation:
-```bash
-# Check Python version (should be 3.8 or higher)
-python3 --version
-
-# Check pip
-pip3 --version
-
-# Test Python interactively
-python3 -c "print('Python is ready!')"
-```
-
 ### Test VS Code with Python:
 1. Open VS Code: `code` (in terminal) or from applications
 2. Create a new file: `Ctrl+N`
@@ -179,19 +140,10 @@ python3 -c "print('Python is ready!')"
 
 ## Troubleshooting Common Issues
 
-### Python Command Not Found
-- **Linux/WSL**: Try `sudo apt install python3`
-- **macOS**: Try `brew install python3`
-- Make sure you're using `python3` if `python` does not work.
-
 ### VS Code Won't Open
 - **Linux/WSL**: Make sure you installed it correctly or use the Windows version with WSL extension
 - **macOS**: Make sure VS Code is in your Applications folder
 - Try opening from the command line: `code`
-
-### Permission Errors with pip
-- We'll teach you how to use pip with virtual environments in Workshop 3.
-- Don't use `sudo` with pip unless absolutely necessary
 
 ### VS Code Extensions Not Working
 - Make sure you have the Python extension installed
@@ -234,3 +186,4 @@ To switch to the third workshop, run:
 ```bash
 git checkout workshop-3
 ```
+and then open `README.md`.
