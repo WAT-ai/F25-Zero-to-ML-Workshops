@@ -508,7 +508,7 @@ To switch to the third workshop, run:
 ```bash
 git checkout workshop-3
 ```
-**Note: take a look at `setup.md` for instructions to install tools you'll need for Python development**
+**Note: take a look at `SetupVSCode.md` for instructions to install VSCode before the next workshop**
 
 To go back to the main page, run:
 ```bash
