@@ -1,4 +1,4 @@
-# Fall 2025 Zero to ML Workshops
+# Workshop 1 (Command Line Interface)
 ![Image created with `gpt-image-1`](./Banner.png)
 _Image created with `gpt-image-1` to suit our theme_
 
