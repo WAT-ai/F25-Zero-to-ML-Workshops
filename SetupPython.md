@@ -1,5 +1,5 @@
-# Python Development Environment Setup
-
+# Pause: Python Development Environment Setup
+![Terminal with colorful output](./CLIBanner.png)
 _Let's set up Python and its essential tools_
 
 ## Overview
