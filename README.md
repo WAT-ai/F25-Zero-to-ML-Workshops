@@ -2,6 +2,8 @@
 ![Python logo](./PythonBanner.png)
 _Get started with Python programming!_
 
+(Note: you should already have installed VSCode via `SetupVSCode.md` in the `workshop-3` branch and installed Python, pip, venv, and Bash from prior workshops)
+
 ## Overview
 Welcome to Workshop 3! Today we're learning about **Python basics** - the fundamental concepts and syntax that every Python programmer should know. We'll cover variables, data types, control structures, functions, and more.
 
@@ -119,7 +121,7 @@ Kaggle provides a fully configured Python environment with all common packages p
 
 Once your environment is set up:
 1. Open `python-basics-part1.ipynb` to start with fundamentals
-2. Work through the notebooks in order: Part 1 → Part 2 → Part 3
+2. Work through the notebooks in order: Part 1 → Part 2 → Part 3. There's an optional `buggy_script.py` file to debug if you want to learn about [step-through debugging](https://www.youtube.com/watch?v=7qZBwhSlfOo).
 3. Run each code cell using Shift+Enter
 4. Complete the exercises in each notebook
 5. Experiment with the examples - breaking things is part of learning!
