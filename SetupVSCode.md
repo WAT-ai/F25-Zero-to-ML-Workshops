@@ -83,7 +83,7 @@ Once you have VS Code installed, these extensions will supercharge your Python d
 ### Core Python Extensions:
 
 1. **Python** (by Microsoft)
-   - Install: Search "Python" in VS Code extensions
+   - Install: Search "Python" in VS Code extensions (on the top left sidebar)
    - What it does: Syntax highlighting, debugging, code formatting, and more
    - Essential for any Python development!
 
