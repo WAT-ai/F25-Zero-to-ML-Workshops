@@ -26,7 +26,7 @@ sudo apt remove package-name
 apt search keyword
 ```
 
-**Note for macOS users:** Replace `apt` with `brew` in all commands above. The concepts are identical!
+**Note for macOS users:** Replace `apt` with `brew` in all commands above. On Termux, use `pkg` instead of `apt` and for iSH, use `apk` instead of `apt`. The concepts are identical, it's just that different package managers have different names.
 
 ## Exercise 3: Fun Package Installation Party 🎉
 
