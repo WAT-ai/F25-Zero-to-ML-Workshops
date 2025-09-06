@@ -1,28 +1,141 @@
-## Jokes
+# Workshop 4: Pandas and Data Processing
+![Pandas banner](./PandasBanner.png)
+_Get started with data manipulation using Python's most powerful data analysis library!_
 
-This is a branch to submit your first pull request. Steps: 
-1. Fork this repository by visiting [the main Github page for this repo](https://github.com/WAT-ai/F25-Zero-to-ML-Workshops) and clicking the Fork button on the top right. 
-2. Wait for Github to take you to your forked repository. Then, clone it by running
-```bash
-git clone <forked-repo-url>
-```
-3. Switch to the `jokes` branch in your cloned repository by running: 
-```bash
-git checkout jokes
-```
-4. Create a file called `<firstname>-<lastinitial>.txt` and add a joke to it using `nano`: 
-```bash
-nano <firstname>-<lastinitial>.txt
-```
-5. Save and exit nano (Ctrl+O, Enter, Ctrl+X).
-6. Commit and push your changes: 
-```bash
-git add <firstname>-<lastinitial>.txt
-git commit -m "Added a joke"
-git push origin jokes
-```
-7. To create a pull request, go to your forked repository website on Github. You should see a "Compare & pull request" button on the top right. Click it.
-8. Add a description of your changes and click "Create pull request".
-9. Make sure you target the `jokes` branch of the original repository and your forked repository (not `main`).
+(Note: you should already have completed Workshop 3 on Python basics and have Python, pip, venv, and VSCode set up)
 
-**Note:** this pull request seems trivial. In real life, you could fork open-source projects and make more substantial changes like new features or bug fixes. This is just a simple exercise to get you familiar with the process of contributing to open-source projects on GitHub. Remember - the **key steps are fork, clone, create a branch, make changes, commit, push, and create a pull request.**
+## Overview
+Welcome to Workshop 4! Today we're diving into **pandas** - Python's essential library for data analysis and manipulation. You'll learn how to load, clean, analyze, and visualize data like a data scientist.
+
+By the end of this workshop, you'll be able to work with real datasets, perform complex data operations, and extract meaningful insights from data. 🧪
+
+## What is Pandas?
+
+Pandas is a powerful Python library that makes working with structured data (like spreadsheets or databases) incredibly easy. Think of it as a more powerful version of Excel - you can:
+- Load data from CSV files, Excel sheets, databases, and more
+- Clean messy data and handle missing values
+- Filter, sort, and group data in sophisticated ways
+- Perform calculations and statistical analysis
+- Create visualizations to understand your data
+
+Pandas is used by data scientists, analysts, and researchers worldwide for everything from business analytics to scientific research.
+
+## Setup Instructions
+
+### Prerequisites
+You must have completed Workshop 3 and have Python, pip, venv, and VSCode installed.
+
+### Step 1: Create a Virtual Environment
+Create a fresh virtual environment specifically for this data analysis workshop.
+
+```bash
+# Create a virtual environment
+python -m venv pandas-env
+
+# Activate the virtual environment
+source pandas-env/bin/activate
+```
+
+You should see `(pandas-env)` appear in your terminal prompt when the environment is active.
+
+### Step 2: Install Required Libraries
+Instead of installing packages one by one, we'll use a `requirements.txt` file - a standard way to manage project dependencies in Python.
+
+#### What is requirements.txt?
+A `requirements.txt` file lists all the Python packages your project needs, along with their specific versions. This ensures that:
+- Everyone working on the project uses the same package versions
+- You can easily recreate the same environment on different computers
+- Your code runs consistently across different setups
+
+The file contains one package per line, like:
+```
+pandas==2.0.3
+matplotlib==3.7.2
+jupyter==1.0.0
+```
+Note that the `==` symbols specify exact versions to perfectly reproduce the environment. Often, you might see `>=` or `<=` to indicate minimum or maximum versions so there's some flexibility for different devices. 
+
+⚠️ In professional settings, more precise tools like [Docker](https://www.youtube.com/watch?v=Ud7Npgi6x8E) or [Conda](https://www.youtube.com/watch?v=YJC6ldI3hWk) are used for "environment management" (making sure two people on different computers can always work with the same setup). Though these are too complicated for us to set up on everyone's computers, which is why we're using `venv` as a much simpler alternative.
+
+#### Install from requirements.txt
+```bash
+# Install all packages listed in requirements.txt
+pip install -r requirements.txt
+```
+
+This single command will install pandas, matplotlib, jupyter, and any other dependencies needed for this workshop. Don't forget the `-r` flag which tells pip to read from the file.
+
+### Step 3: Open the Pandas Notebook
+1. Open VS Code in your project folder: `code .`
+2. Make sure the Jupyter extension is installed (you should have this from Workshop 3)
+3. Open `pandas.ipynb` by double-clicking it in the VS Code file explorer
+
+### Step 4: Select Your Kernel
+When you open the notebook:
+1. Click "Select Kernel" in the top-right of the notebook
+2. Choose "Python Environments..."
+3. Select "Python (pandas-env)" from the list
+
+You should now be able to run cells using Shift+Enter or the play button.
+
+## Troubleshooting
+
+### Common Issues and Solutions
+
+**"requirements.txt not found"**
+- Make sure you're in the correct directory where the requirements.txt file is located
+- Check that the file exists: `ls requirements.txt`
+
+**Package installation fails**
+- Make sure your virtual environment is activated (you should see `(pandas-env)` in your terminal)
+- Try upgrading pip first: `pip install --upgrade pip`
+- If still failing, install packages individually: `pip install pandas matplotlib jupyter`
+
+**Import errors when running notebook cells**
+- Verify packages are installed: `pip list` should show pandas, matplotlib, etc.
+- Make sure you selected the correct kernel (pandas-env) in the notebook
+- Try restarting the kernel: click the restart button in the kernel selector
+
+**Kernel connection issues**
+- Restart VS Code completely
+- Reactivate your virtual environment: `source pandas-env/bin/activate`
+- Reinstall ipykernel: `pip install ipykernel`
+
+**Data files not loading**
+- Check that any CSV or data files are in the same directory as your notebook
+- Verify file paths in your code match the actual file locations
+- Use forward slashes (/) in file paths, even on Windows
+
+### Alternative Setup: Kaggle
+
+If you're having trouble with local setup:
+
+1. **Kaggle**: Upload `pandas.ipynb` to [kaggle.com](https://www.kaggle.com) - pandas is pre-installed
+
+Both platforms provide fully configured environments with pandas and other data science libraries ready to use.
+
+## Getting Started
+
+Once your environment is set up:
+1. Open `pandas.ipynb` and start learning data manipulation
+2. Work through the examples and exercises in the notebook
+3. Experiment with the provided datasets
+4. Try modifying the code to explore different aspects of the data
+5. Complete all the hands-on exercises to reinforce your learning
+
+## When You're Done
+
+After completing the pandas workshop:
+
+```bash
+# Deactivate your virtual environment
+deactivate
+
+# Move to the next workshop on LangChain
+git checkout workshop-5
+```
+
+You can also return to the main page:
+```bash
+git checkout main
+```
