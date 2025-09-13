@@ -16,7 +16,7 @@ LangChain is a framework that makes it easier to tools to work with language mod
 
 ## API Setup
 
-**Important**: This workshop requires an API key from an AI service. For this workshop, we'll provide instructions for two popular options:
+**Important**: This workshop requires an API key from an AI service. For this workshop, we'll provide instructions for OpenAI, though some other options are listed below if you want to experiment yourself:
 
 ### Option 1: OpenAI (Recommended for beginners)
 - Create account at [platform.openai.com](https://platform.openai.com)
@@ -24,7 +24,13 @@ LangChain is a framework that makes it easier to tools to work with language mod
 - Create a new API key
 - **Cost**: ~$1-5 for workshop exercises (pay-per-use)
 
-### Option 2: Hugging Face
+### Option 2: Claude
+- Create account at [claude.ai](https://claude.ai)
+- Navigate to API keys section
+- Create a new API key
+- **Cost**: $0.50-4 for workshop exercises (pay-per-use)
+
+### Option 3: Hugging Face
 - Create account at [huggingface.co](https://huggingface.co)
 - Get an API key from your settings
 - **Cost**: Free tier available, but limited usage
@@ -85,11 +91,11 @@ The notebook will show you how to load these securely.
 **LangChain installation fails**
 - Ensure virtual environment is activated
 - Try upgrading pip: `pip install --upgrade pip`
-- Install individually if needed: `pip install langchain langchain-openai langchain-huggingface streamlit`
+- Install individually if needed: `pip install langchain langchain-openai langchain-huggingface streamlit faiss-cpu`
 
 **Version conflicts**
 - LangChain ecosystem updates frequently
-- If you encounter issues, try: `pip install --upgrade langchain langchain-openai langchain-huggingface streamlit`
+- If you encounter issues, try: `pip install --upgrade langchain langchain-openai langchain-huggingface streamlit faiss-cpu`
 
 ### Model Connection Issues
 **Rate limiting or quota errors**
