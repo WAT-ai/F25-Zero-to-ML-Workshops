@@ -9,6 +9,14 @@ Welcome to Workshop 3! Today we're learning about **Python basics** - the fundam
 
 By the end of this workshop, you'll have a solid understanding of Python and be able to write your own simple scripts. 💪
 
+**Contents:**
+1. `SetupVSCode.md` - Instructions to set up VS Code and Jupyter Notebooks
+2. `python-basics-part1.ipynb` - Python fundamentals: variables, data types, functions
+3. `python-basics-part2.ipynb` - Control structures: conditionals, loops, error handling
+4. `python-basics-part3.ipynb` - advanced debugging, concise pythonic code.
+5. `debugger/buggy_script.py` - optional scripts to practice debugging with
+6. `visuals/visuals.ipynb` - optional exercises showing visual results
+
 # Python Jupyter Notebooks Setup Guide
 
 This repository contains interactive Python notebooks that teach programming fundamentals. Follow this guide to set up your development environment and start learning.
