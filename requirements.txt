@@ -8,3 +8,5 @@ feedparser
 langchain-yt-dlp 
 newspaper3k 
 listparser
+lxml-html-clean 
+tqdm
