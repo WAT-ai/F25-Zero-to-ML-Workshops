@@ -1,6 +1,65 @@
-# 🤖 Build Your Own Website Chatbot!
+# Final Challenge: Build Your Business Chatbot
 
-Turn any website into a chatbot that can answer questions about it. Perfect for sports stats, TV show info, or anything you're interested in!
+Now it's time to apply what you've learned! Work in teams of two to create a chatbot for a business idea. You'll need to:
+
+1. **Create one slide** explaining:
+   - Your target customer (ideal demographic)
+   - The problem your chatbot solves
+   - How your chatbot helps
+
+2. **Build the chatbot** using the techniques from this workshop
+
+## Business Ideas to Choose From
+
+### 1. Neighborhood Home Finder
+- **Target Demographic**: First-time homebuyers (ages 25-35)
+- **Problem**: Overwhelmed by choosing which neighborhoods to look at when house hunting
+- **Technical Features**: Vectorstore with info about neighborhoods in 3-5 cities, city selector dropdown in frontend, frontend form which gets user preferences (schools, transit, nightlife, etc.)
+
+### 2. College Application Coach
+- **Target Demographic**: High school juniors and seniors applying to college
+- **Problem**: Confused about which colleges match their profile
+- **Technical Features**: Vectorstore with college data (acceptance rates, programs, campus culture), frontend form to get user info (academic interests, location, GPA, etc.), structured output to return top 5 college matches with reasoning.
+
+### 3. Fitness Routine Builder
+- **Target Demographic**: Busy professionals (ages 25-45) new to fitness
+- **Problem**: Don't know how to create effective workout routines that fit their schedule
+- **Technical Features**: Vectorstore with exercise descriptions and routines, structured output to generate weekly workout plans, frontend form for fitness level/goals/available time, Tool Use to calculate calories burned
+
+### 4. Recipe Recommendation Assistant
+- **Target Demographic**: College students and young adults learning to cook
+- **Problem**: Limited ingredients and cooking skills but want healthy, affordable meals
+- **Technical Features**: Vectorstore with recipe data, form on frontend to get budget, available ingredients, dietary restrictions, structured output for shopping list generation and recipe steps.
+
+### 5. Career Path Explorer
+- **Target Demographic**: University students unsure about their career direction
+- **Problem**: Don't understand what different careers actually involve day-to-day
+- **Technical Features**: Vectorstore with career profiles and job descriptions, frontend form to get industry, personality, hobbies, skills, etc., structured output and frontend displays career comparison table
+
+### 6. Travel Destination Planner
+- **Target Demographic**: Young professionals (25-35) planning their first international trip
+- **Problem**: Overwhelmed by choosing destinations and planning itineraries that match their budget and interests
+- **Technical Features**: Vectorstore with travel guides for 10-15 popular destinations, budget, hobbies, culture preferences form on frontend, structured output to generate day-by-day itinerary, PromptTemplate to compare destinations based on preferences (adventure, culture, relaxation, etc.)
+
+### 7. Book Recommendation Engine
+- **Target Demographic**: Casual readers looking to develop a reading habit
+- **Problem**: Don't know what books to read next and often pick books they don't finish
+- **Technical Features**: Vectorstore with book summaries and reviews across genres, genre/mood/other preference form on frontend, structured output for reading list with explanations, Tool Use to estimate reading time based on book length
+
+### 8. Study Buddy for Standardized Tests
+- **Target Demographic**: High school students preparing for SAT/ACT
+- **Problem**: Need personalized practice and don't know which topics to focus on
+- **Technical Features**: Vectorstore with test prep content and strategies, subject selector on frontend, structured output to generate practice questions, Tool Use to track progress across sessions
+
+### Your own idea!
+
+### Tips for Success
+- Start simple - get the basic chatbot working first
+- Use the techniques you learned: PromptTemplates for consistent responses, Vectorstores for knowledge, Structured Outputs for formatted data
+- Test your chatbot with real questions your target demographic would ask
+- Make the frontend user-friendly with clear instructions
+
+P.S. **Want more inspiration?** Try finding data on [Kaggle](https://www.kaggle.com/datasets) related to your business idea. Here are [some examples](https://wataiteam.substack.com/p/onboarding-lessons-from-watais-political) of creative chatbots.
 
 ## 🚀 Step-by-Step Setup Guide
 
@@ -67,8 +126,7 @@ pip install -r requirements.txt   # Install dependencies
 
 1. Open `prep_vectorstore.py` in your text editor
 2. Find the `WEBSITE_URLS` list (around line 17)
-3. Replace `"https://example.com"` with your chosen website(s)
-4. **NEW**: You can add multiple URLs! Just add more to the list:
+3. You can add multiple URLs, based on your chatbot topic. Ex: Sports chatbot:
    ```python
    WEBSITE_URLS = [
        "https://www.espn.com/nba/",
@@ -76,7 +134,7 @@ pip install -r requirements.txt   # Install dependencies
        "https://www.basketball-reference.com/",
    ]
    ```
-5. (Optional) Adjust `chunk_size` and `chunk_overlap` (lines 60-61)
+4. (Optional) Adjust `chunk_size` and `chunk_overlap` (lines 60-61). Each website's text is split into chunks for the vectorstore. (Slightly) Smaller chunks = more precise answers, but slower and more expensive. Overlap helps share similarity across chunks but (REALLY) increases cost.
 
 **Run the script**:
 ```bash
@@ -125,17 +183,11 @@ The app should open automatically in your browser at `http://localhost:8501`. If
 After the initial setup, here's what you need to do each time:
 
 ```bash
-cd project                       # Navigate to project folder
+cd project                      # Navigate to project folder
 source venv/bin/activate        # Activate virtual environment
 streamlit run frontend.py       # Launch the app
 ```
 
-## 💡 Cool Website Ideas
-- **Sports**: ESPN, NBA.com, your favorite team's site
-- **Entertainment**: IMDb, Rotten Tomatoes
-- **Gaming**: Game wikis, patch notes
-- **Music**: Billboard charts, artist pages
-- **News**: Tech blogs, science sites
 
 ## 🎨 Frontend Customization Tips
 - Change emojis in the title

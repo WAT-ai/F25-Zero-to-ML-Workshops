@@ -120,5 +120,3 @@ deactivate
 # Return to main branch or continue to next workshop
 git checkout main
 ```
-
-P.S. **Try finding some data on [Kaggle](https://www.kaggle.com/datasets) related to your hobby.** Make a chatbot related to it. Here are [some examples](https://wataiteam.substack.com/p/onboarding-lessons-from-watais-political)
