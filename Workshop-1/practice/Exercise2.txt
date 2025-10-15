@@ -1,0 +1,88 @@
+Exercise 2: Data Exploration - Results
+========================================
+
+Part 1: Find appearances of the word 'sunny'
+---------------------------------------------
+Command:
+  curl http://wttr.in/Toronto | grep -i "sunny"
+
+Explanation:
+  - curl fetches the weather report from the API
+  - grep -i searches for "sunny" (case-insensitive)
+  - Found 6 lines containing "Sunny"
+
+
+Part 2: Count how many times 'sunny' appears
+---------------------------------------------
+Command:
+  curl http://wttr.in/Toronto | grep -io "sunny" | wc -l
+
+Explanation:
+  - curl fetches the weather report
+  - grep -io extracts only the word "sunny" (-o for only matching, -i for case-insensitive)
+  - wc -l counts the number of lines (each line has one "sunny")
+  
+Result: 7 occurrences of the word "sunny"
+
+
+Part 3: Show how often every word is used (CHALLENGE)
+------------------------------------------------------
+Command:
+  curl http://wttr.in/Toronto | tr -cs '[:alpha:]' '\n' | sort | uniq -c | sort -rn
+
+Explanation:
+  1. curl http://wttr.in/Toronto - Fetch the weather report
+  2. tr -cs '[:alpha:]' '\n' - Translate non-alphabetic chars to newlines (one word per line)
+  3. sort - Sort words alphabetically
+  4. uniq -c - Count unique words and show the count
+  5. sort -rn - Sort by count in reverse numerical order (highest first)
+
+Results (Top words by frequency):
+  296 m        (from km/h and mm)
+   26 km
+   13 mm
+   13 h
+   13 C
+    7 Sunny
+    3 Oct
+    3 Noon
+    3 Night
+    3 Morning
+    3 Evening
+    3 Clear
+    2 Toronto
+    2 Cloudy
+    1 wttr
+    1 updates
+    1 report
+    1 in
+    1 igor
+    1 for
+    1 chubin
+    1 Wed
+    1 Weather
+    1 Tue
+    1 Thu
+    1 Partly
+    1 Overcast
+    1 Ontario
+    1 Location
+    1 Follow
+    1 Canada
+
+
+Key Concepts Learned:
+---------------------
+- Pipe operator (|): Connects command outputs to inputs
+- grep: Search for patterns in text
+  - -i flag: case-insensitive search
+  - -o flag: only output matching parts
+- wc: Word count command
+  - -l flag: count lines
+  - -w flag: count words
+- tr: Translate or delete characters
+- sort: Sort lines of text
+- uniq -c: Count unique occurrences
+- Command chaining: Building complex operations from simple commands
+
+Date completed: October 14, 2025
