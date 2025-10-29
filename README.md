@@ -1,117 +1,98 @@
-# Workshop 5: LangChain and AI Applications
-![LangChain banner](./LangchainBanner.png)
-_Build intelligent applications with Large Language Models!_
+# Workshop 6: NumPy and Machine Learning Fundamentals
+_Master numerical computing and build ML algorithms from scratch!_
 
-(Note: you should have completed Workshops 3-4 and be familiar with Python, pandas, and virtual environments)
+![NumPy Banner](./NumPyBanner.jpg)
+
+(Note: you should have completed Workshops 1-3 and be familiar with Python basics and virtual environments)
 
 ## Overview
 
-LangChain is a framework that makes it easier to tools to work with language models like GPT, Claude, or open-source alternatives. Think of it as glue that connects together large language models, data sources, your own APIs, and more. With LangChain, you can:
+NumPy is the foundation of rapid computing in Python. It provides powerful array operations and mathematical functions that make computations as efficient as C code. In this workshop, you'll learn NumPy fundamentals and apply them to implement machine learning algorithms from scratch.
 
-- **Chain together AI operations**: Connect multiple AI tasks in sequence
-- **Work with data**: Load, split, and search through text (or other) documents
-- **Manage past interactions**: Give AI applications the ability to remember conversation history
-- **Manage integrations**: Connect AI to databases, APIs, and other tools
-- **Customise prompts**: Optimize how you ask questions to AI models
+### What You'll Learn
 
-## API Setup
+- **NumPy Basics**: Arrays, indexing, slicing, and broadcasting
+- **Array Operations**: Mathematical operations, aggregations, and transformations
+- **ML Concepts**: Loss functions, prediction equations, and optimization algorithms
+- **Algorithm Implementation**: Build genetic optimization and gradient descent from scratch
+- **Performance Comparison**: Compare different optimization approaches on real data
 
-**Important**: This workshop requires an API key from an AI service. For this workshop, we'll provide instructions for OpenAI, though some other options are listed below if you want to experiment yourself:
+### Workshop Structure
 
-### Option 1: OpenAI (Recommended for beginners)
-- Create account at [platform.openai.com](https://platform.openai.com)
-- Navigate to API keys section
-- Create a new API key
-- **Cost**: ~$1-5 for workshop exercises (pay-per-use)
-
-### Option 2: Claude
-- Create account at [claude.ai](https://claude.ai)
-- Navigate to API keys section
-- Create a new API key
-- **Cost**: $0.50-4 for workshop exercises (pay-per-use)
-
-### Option 3: Hugging Face
-- Create account at [huggingface.co](https://huggingface.co)
-- Get an API key from your settings
-- **Cost**: Free tier available, but limited usage
-
-**Note**: We'll show you how to set up your API key securely using environment variables.
+1. **Notebook 1**: NumPy fundamentals and essential operations
+2. **PDF**: ML concepts (loss functions, gradient descent, genetic algorithms)
+3. **Notebook 2**: Implement and compare optimization algorithms
+   - Genetic algorithm vs. gradient descent
+   - Simple linear regression on Kaggle dataset
+   - Mean Squared Error (MSE) as loss/fitness function
 
 ## Setup Instructions
 
 ### Step 1: Create Virtual Environment
 ```bash
-# Create a virtual environment for LangChain
-python -m venv langchain-env
+# Create a virtual environment for NumPy workshop
+python -m venv numpy-env
 
 # Activate the environment
-source langchain-env/bin/activate
+source numpy-env/bin/activate  # On Windows: numpy-env\Scripts\activate
 ```
 
 ### Step 2: Install Dependencies
 ```bash
-# Install from requirements.txt (includes LangChain, OpenAI, and other dependencies)
-pip install -r requirements.txt
+# Install NumPy, Jupyter, and other dependencies
+pip install numpy pandas matplotlib jupyter
 ```
 
-### Step 3: Set Up API Key
-**Never put API keys directly in your code!** Anyone can see/use them when you commit your code to Github. We'll instead use environment variables, which are local copies of the API keys that your code can read only when it needs. This avoids accidentally sharing your keys online.
-
-Create a file named `.env` in your project folder:
-```
-OPENAI_API_KEY=<your-api-key-here>
-# Optional: for Hugging Face
-HUGGINGFACE_API_KEY=<your-huggingface-api-key-here>
-```
-
-The notebook will show you how to load these securely.
-
-### Step 4: Open the LangChain Notebook
+### Step 4: Open the NumPy Notebooks
 1. Open VS Code in your project folder: `code .`
 2. Ensure Jupyter extension is installed
-3. Open `langchain-1.ipynb`
-4. Select your `langchain-env` kernel
+3. Start with `numpy-basics.ipynb` (Notebook 1)
+4. Select your `numpy-env` kernel
+5. After, proceed to `numpy-optimization.ipynb` (Notebook 2)
 
 ## Troubleshooting
 
-### API Key Issues
-**"Invalid API key" or authentication errors**
-- Verify your API key is correct and active
-- Check that environment variable is set: `echo $OPENAI_API_KEY`
-- Ensure you have credit/usage remaining on your account
-- Try restarting your terminal and VS Code
-
-**API key security concerns**
-- Never commit API keys to Git repositories
-- Use environment variables or .env files
-- Add `.env` to your `.gitignore` file
-- Rotate keys regularly in production applications
-
 ### Package Installation Issues
-**LangChain installation fails**
+**NumPy installation fails**
 - Ensure virtual environment is activated
 - Try upgrading pip: `pip install --upgrade pip`
-- Install individually if needed: `pip install langchain langchain-openai langchain-huggingface streamlit faiss-cpu`
+- On some systems, you may need: `pip install numpy --no-cache-dir`
 
-**Version conflicts**
-- LangChain ecosystem updates frequently
-- If you encounter issues, try: `pip install --upgrade langchain langchain-openai langchain-huggingface streamlit faiss-cpu`
+**Import errors**
+- Verify you're using the correct kernel in Jupyter
+- Restart the kernel if you just installed packages
+- Check installation: `python -c "import numpy; print(numpy.__version__)"`
 
-### Model Connection Issues
-**Rate limiting or quota errors**
-- Most APIs have usage limits for free/trial accounts
-- Check your account usage and billing settings
-- Consider using smaller models for testing
-- Implement retry logic with delays
+### Performance Issues
+**Code runs slowly**
+- NumPy operations should be fast; avoid Python loops when possible
+- Use vectorized operations instead of iterating over arrays
+- For large datasets, consider working with smaller samples first
 
-**Slow responses**
-- AI model calls can take 1-30 seconds depending on complexity
-- This is normal - be patient during API calls
-- Consider using streaming responses for better user experience
+**Memory errors**
+- Large arrays can consume significant memory
+- Try reducing dataset size for testing
+- Use `dtype` parameter to reduce memory (e.g., `float32` instead of `float64`)
+
+### Algorithm Issues
+**Gradient descent not converging**
+- Check your learning rate (try smaller values like 0.001, 0.0001)
+- Verify loss is decreasing over iterations
+- Ensure features are properly normalized
+
+**Genetic algorithm stuck**
+- Increase population size
+- Adjust mutation rate
+- Check fitness function is calculating correctly
+
+### Next Steps
+After this workshop, you'll be ready to:
+- Explore scikit-learn for more ML algorithms
+- Learn TensorFlow or PyTorch for deep learning
 
 ## When You're Done
 
-After completing the LangChain workshop:
+After completing the NumPy workshop:
 
 ```bash
 # Deactivate your virtual environment
