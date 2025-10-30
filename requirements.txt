@@ -1,7 +1,7 @@
 requests 
 python-dotenv 
 langchain-openai 
-langchain 
+langchain>0.3,<1.0
 langchain-community 
 beautifulsoup4 
 feedparser 
