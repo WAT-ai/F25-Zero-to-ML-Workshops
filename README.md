@@ -2,6 +2,9 @@
 ![Git branching diagram](./GitBanner.png)
 _Master the art of tracking changes and collaborating on code!_
 
+Resources: 
+- [Video recording of the lesson](https://www.youtube.com/watch?v=mZX2nbOaiUk&list=PLqgr5FD_y_wKuCi7ZHNFQewXlV1TbBbPS&index=2)
+
 ## Overview
 Welcome to Workshop 2! Today we're learning about **version control** - a system that tracks changes to your files over time. We'll focus on **Git**, the most popular version control tool, and **GitHub**, a platform where people share and collaborate on code projects.
 
