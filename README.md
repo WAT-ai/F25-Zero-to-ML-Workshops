@@ -4,6 +4,9 @@
 
 _Build and train neural networks with PyTorch!_
 
+Resources: 
+- [Pytorch Kaggle Notebook](https://www.kaggle.com/code/madhavmalhotra/intro-to-pytorch?scriptVersionId=274013702)
+
 (Note: you should have completed Workshop 6 or be familiar with NumPy and basic ML concepts)
 
 ## Overview
