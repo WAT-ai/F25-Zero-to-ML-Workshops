@@ -2,6 +2,10 @@
 ![Pandas banner](./PandasBanner.png)
 _Get started with data manipulation using Python's most powerful data analysis library!_
 
+Resources: 
+- [Video recording](https://www.youtube.com/watch?v=RxRkzsX3lPU&list=PLqgr5FD_y_wKuCi7ZHNFQewXlV1TbBbPS&index=7)
+- [Kaggle notebook](https://www.kaggle.com/code/madhavmalhotra/intro-to-pandas-with-sales-analysis-exercises)
+
 (Note: you should already have completed Workshop 3 on Python basics and have Python, pip, venv, and VSCode set up)
 
 ## Overview
