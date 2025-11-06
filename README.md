@@ -2,6 +2,18 @@
 ![Python logo](./PythonBanner.png)
 _Get started with Python programming!_
 
+Video recordings: 
+- [Intro to virtual environments](https://www.youtube.com/watch?v=3eOR6aUFBuc&list=PLqgr5FD_y_wKuCi7ZHNFQewXlV1TbBbPS&index=3)
+- [Intro to VSCode](https://www.youtube.com/watch?v=8FeTUDGQyVc&list=PLqgr5FD_y_wKuCi7ZHNFQewXlV1TbBbPS&index=4)
+- [Python basics](https://www.youtube.com/watch?v=yFBe64WyXRc&list=PLqgr5FD_y_wKuCi7ZHNFQewXlV1TbBbPS&index=5)
+- [Python loops and classes](https://www.youtube.com/watch?v=0L5x_3tj0fY&list=PLqgr5FD_y_wKuCi7ZHNFQewXlV1TbBbPS&index=6)
+
+Kaggle Notebooks: 
+- [Basics notebook](https://www.kaggle.com/code/madhavmalhotra/python-basics-1-operators-functions)
+- [Loops and classes](https://www.kaggle.com/code/madhavmalhotra/python-basics-2-loops-conditions-classes)
+- [Concisions and Debugging](https://www.kaggle.com/code/madhavmalhotra/python-basics-3-concisions-debugging)
+- [Visual exercises](https://www.kaggle.com/code/madhavmalhotra/fun-visual-python-exercises)
+
 (Note: you should already have installed VSCode via `SetupVSCode.md` in the `workshop-3` branch and installed Python, pip, venv, and Bash from prior workshops)
 
 ## Overview
