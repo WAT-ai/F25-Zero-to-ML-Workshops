@@ -15,7 +15,7 @@ You're an agent (robot, game player, algorithm) making decisions over time. You:
 1. **Observe** where you are (the "state")
 2. **Choose** what to do (an "action")
 3. **Get feedback** (a "reward")
-4. **Move** to a new statew
+4. **Move** to a new state
 5. **Repeat** and learn from experience
 
 **Goal:** Learn which actions maximize total reward over time.
