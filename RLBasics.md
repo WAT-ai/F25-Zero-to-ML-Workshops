@@ -16,7 +16,7 @@ A hands-on introduction to core RL concepts for first-year university students.
 
 **Goal:** Learn which actions to take in each state to get the most total reward over time.
 
-![The RL Loop](rl_loop_diagram.png)
+![The RL Loop](img/rl_loop_diagram.png)
 
 **Example - GridWorld Navigation:**
 - **States**: Your position on a grid (e.g., row 2, column 3)
@@ -24,7 +24,7 @@ A hands-on introduction to core RL concepts for first-year university students.
 - **Rewards**: +1 for reaching the goal, -1 for hitting a wall, 0 otherwise
 - **Learning challenge**: Figure out the best path from any starting position to the goal
 
-![GridWorld Example](gridworld_example.png)
+![GridWorld Example](img/gridworld_example.png)
 
 **The Challenge:** You don't know ahead of time which actions are good! You have to try things and learn from experience.
 
@@ -231,7 +231,7 @@ action = softmax_policy(Q, temperature=0.5)
 - Action 1: ~67% probability (highest Q!)
 - Action 2: ~9% probability
 
-![Policy Comparison](epsilon_greedy_vs_softmax.png)
+![Policy Comparison](img/epsilon_greedy_vs_softmax.png)
 
 ---
 
@@ -313,7 +313,7 @@ Notice how older rewards $r_{n-2}, r_{n-3}, ...$ are multiplied by $(1-\alpha)^2
 - **Simple averaging** ($\frac{1}{n}$): When true values don't change (stationary problems)
 - **Exponential** ($\alpha$): When true values can change over time (non-stationary problems)
 
-![Averaging Methods Comparison](averaging_comparison.png)
+![Averaging Methods Comparison](img/averaging_comparison.png)
 
 **Common values for $\alpha$:** 0.1 (slow learning), 0.5 (fast learning)
 
@@ -447,7 +447,7 @@ $$G = 1 + 0.9 \times 2 + 0.9^2 \times 3 = 1 + 1.8 + 2.43 = 5.23$$
 2. Mathematically convenient (infinite sums converge)
 3. Matches human preferences (we prefer rewards sooner)
 
-![Discount Factor Effects](discount_factor_visualization.png)
+![Discount Factor Effects](img/discount_factor_visualization.png)
 
 ---
 
@@ -482,7 +482,7 @@ NewEstimate = OldEstimate + StepSize × [Target - OldEstimate]
 - Error = $9.2 - 5 = 4.2$
 - New estimate: $V(s) = 5 + 0.1 \times 4.2 = 5.42$
 
-![TD Update Example](td_update_diagram.png)
+![TD Update Example](img/td_update_diagram.png)
 
 ---
 
@@ -672,7 +672,7 @@ target = reward + gamma * Q[next_state, next_action]
 target = reward + gamma * np.max(Q[next_state])  # Always greedy!
 ```
 
-![SARSA vs Q-Learning](sarsa_vs_qlearning_diagram.png)
+![SARSA vs Q-Learning](img/sarsa_vs_qlearning_diagram.png)
 
 ---
 
@@ -701,7 +701,7 @@ In practice:
 - SARSA learns a safer path during training
 - Q-Learning learns the risky-but-optimal path
 
-![Cliff Walking Comparison](cliff_walking_comparison.png)
+![Cliff Walking Comparison](img/cliff_walking_comparison.png)
 
 ---
 
@@ -912,7 +912,7 @@ $$\mathbf{w} \leftarrow \mathbf{w} + \alpha [\text{target} - Q(s, a; \mathbf{w})
 
 **Example:** If you learn that "being close to the goal is good" in one corner of a maze, this automatically makes Q-values higher near the goal in ALL corners, because they share the feature "distance to goal"
 
-![Function Approximation Concept](function_approximation_diagram.png)
+![Function Approximation Concept](img/function_approximation_diagram.png)
 
 ---
 
@@ -1252,7 +1252,7 @@ You can now understand how modern deep RL algorithms work:
 
 **You now have the foundation to understand ALL of these!**
 
-![Learning Curves Comparison](learning_curves_comparison.png)
+![Learning Curves Comparison](img/learning_curves_comparison.png)
 
 ---
 
