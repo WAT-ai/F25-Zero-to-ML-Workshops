@@ -1,214 +1,190 @@
-# Reinforcement Learning Basics: A Practical Guide
+# Reinforcement Learning: A Minimal Math Intro
 
-A hands-on introduction to core RL concepts for first-year university students.
-
----
 
 ## What is Reinforcement Learning?
 
-**The Core Idea:** You're an agent (like a robot or game player) making decisions over time. You:
+Reinforcement learning (RL) is one of the main types of machine learning. It's very different from most AI algorithms you might have heard of. 
+- **Most common AI algorithms today are based on supervised learning**, where you give the algorithms examples of good answers and the algorithms learn to mimic those ansewrs. 
+- In contrast, **RL is about learning from trial and error without being given the right answers**. Ex: Supervised ML is how you prep for your exam by doing practice problems and checking if your answer is the same as the given solution. RL is like how you learned to walk as a baby by trying things out, falling down, and trying again. 
 
-1. **Observe** where you are (the "state")
-2. **Choose** what to do (an "action")
-3. **Get feedback** (a "reward" - could be positive, negative, or zero)
-4. **Move** to a new state based on your action
-5. **Repeat** this process
+Some key vocab for RL: 
+1. There's some **environment** that the RL algorithm (AKA **agent**) interacts with. Ex: A self-driving car on the road, an AI controlling a ghost in the game pacman, etc.
+2. The agent 'measures' what's happening in the environment (ex: the car's speed, acceleration, position). These measurements make up the **state** of the environment.
+3. The agent chooses an **action** to take given the current observed state. Ex: The car can accelerate, brake, turn left, turn right.
+4. Now the state has changed given the action and the agent is given some **reward** that we (the programmer) set. Ex: The agent gets +1 reward for staying in the lane, -1 reward for crashing. We create RL algorithms to maximise the reward they receive over time. 
+5. The agent repeats the process (state -> action -> reward -> state -> ...)
 
-**Goal:** Learn which actions to take in each state to get the most total reward over time.
+**Goal of all RL algorithms:** learn which actions to take in each state to get the most total reward over time.
 
 ![The RL Loop](img/rl_loop_diagram.png)
 
-**Example - GridWorld Navigation:**
-- **States**: Your position on a grid (e.g., row 2, column 3)
-- **Actions**: Move up, down, left, or right
-- **Rewards**: +1 for reaching the goal, -1 for hitting a wall, 0 otherwise
-- **Learning challenge**: Figure out the best path from any starting position to the goal
+**Example - navigating a 'gridworld' game:**
+- States: Your position on a grid (e.g., row 2, column 3)
+- Actions: Move up, down, left, or right
+- Rewards: +1 for reaching the goal, -1 for hitting a wall, 0 otherwise
+- Learning challenge: Figure out the best path from any starting position to the goal
 
 ![GridWorld Example](img/gridworld_example.png)
 
-**The Challenge:** You don't know ahead of time which actions are good! You have to try things and learn from experience.
+**The Challenge:** the agent doesn't know ahead of time where the walls or the goals are! It's just initialised at the starting square every time and left to try things out until it finds the best path.
+
+Now that we have some basic RL jargon down, let's explore HOW an RL algorithm can figure out how to select actions to take in any state.
 
 ---
 
-## 1. Foundation: Value Functions and Policies
+## 1. Value Functions and Policies
 
 ### The Big Picture
 
-To make good decisions, we need to estimate **how good** different situations are. There are two main ways to measure "goodness":
+For the RL algorithm to select 'good' actions, it needs to (numerically) estimate one of two things:
 
-1. How good is it to **be in a state**? (State-Value)
-2. How good is it to **take a specific action in a state**? (Action-Value)
+1. **State-value $V(s)$**: How good is it to be in state $s$? Ex: A self-driving car might estimate the state value of having a state with speed over 150kmh on a highway is 0 (dangerous!). In contrast, the state with a speed of 100kmh on a highway might have estimated state-value 10 (safe)
+2. **Action-value $Q(s, a)$**: How good is it to take a specific action $a$ in a state $s$? Ex: In the same self-driving car example, the action-value of accelerating when already at 150kmh might be -10 (very bad!), while the action-value of braking when at 150kmh might be +5 (good!)
 
-These estimates help us decide what to do next.
+Why are these useful? If the agent knows how 'good' each state is (state-value), it can choose actions that lead to better states. If the agent knows how 'good' each action is in each state (action-value), it can directly pick the best action to take.
 
-### State-Value Function: $V(s)$
-
-**What it means:** The expected total reward you'll get starting from state $s$
-
-**Notation breakdown:** 
-- $V$ = "value"
-- $s$ = a specific state
-- $V(s)$ = "the value of state $s$"
-
-**Answers the question:** "How good is it to be here?"
-
-**Example in GridWorld:**
-- $V(\text{state next to goal})$ = high (close to reward!)
-- $V(\text{state far from goal})$ = low (long way to go)
-
-### Action-Value Function: $Q(s, a)$
-
-**What it means:** The expected total reward you'll get starting from state $s$, taking action $a$, then continuing optimally
-
-**Notation breakdown:**
-- $Q$ = "quality" of an action
-- $s$ = a specific state
-- $a$ = a specific action
-- $Q(s, a)$ = "the quality of taking action $a$ in state $s$"
-
-**Answers the question:** "How good is it to take this action right now?"
-
-**Example in GridWorld:**
-- $Q(\text{position}, \text{move toward goal})$ = high
-- $Q(\text{position}, \text{move into wall})$ = low
-
-**Why $Q$ is more useful than $V$:** If you know $Q(s, a)$ for all actions, you can directly pick the best action: choose the action with highest $Q$ value!
-
-### Policy: $\pi(a|s)$
-
-**What it means:** A policy is your strategy - it tells you which action to take in each state
-
-**Notation breakdown:**
-- $\pi$ = "pi", represents the policy (your strategy)
-- $a|s$ = read as "action given state" or "action when in state"
-- $\pi(a|s)$ = "the probability of taking action $a$ when in state $s$"
-
-**Note:** The vertical bar "|" means "given" or "when". This notation comes from probability, where $P(A|B)$ means "probability of A given B". It might look unfamiliar, but it's just shorthand for describing which action you'd pick in each situation.
-
-**Answers the question:** "What should I do in this state?"
+Speaking of picking actions, the **policy $\pi(a|s)$** is the probability of picking action $a$ when in state $s$. The policy tells the agent what to do in each state. The **policy is derived from the action/state values**. We'll show how this happens soon.
 
 **Two types of policies:**
+- A deterministic policy always picks the same action in a given state
+- A stochastic policy can pick different actions for the same state. Ex: In pacman, go left from the centre of the screen 70% of the time, go right 30% of the time.
 
-#### Deterministic Policy
-Always pick the same action in a given state
-- In state $s$, always do action $a_{\text{best}}$
-- Example: "Always move toward the goal"
+### Key Math Equations
 
-#### Stochastic Policy  
-Pick actions with some randomness
-- $\pi(a|s)$ gives the probability of each action
-- Example: $\pi(\text{left}|s) = 0.7$ and $\pi(\text{right}|s) = 0.3$ means "70% chance go left, 30% chance go right"
+The complicated part is figuring out expressions for the state-value and action-value functions. Before diving into that complexity, let's just define a simple policy for now. 
 
-### Connecting the Concepts
+Let's say we've _somehow_ found action-value estimates $Q(s,a)$ for all states $s$ and all actions $a$. Given these estimates, we can define a simple **greedy policy that always picks the action with the highest action-value** in each state:
+$$\pi(a|s) = 1 \quad \text{if } a=\arg\max_{a'} Q(s, a')$$
+$$\pi(a|s) = 0 \quad \text{otherwise}$$
 
-**Key Equation:**
-$$V(s) = \sum_a \pi(a|s) \cdot Q(s, a)$$
+Math notation breakdown:
+- $\arg\max_{a'} f(a)$ is read as "the argument $a'$ that maximises our chosen function $f(a)$". 'Argument' is just the input to a function.
+- $\arg\max_{a'} Q(s, a')$ means "whichever action $a'$ gives the biggest action-value $Q(s,a')$"
+- So the greedy policy picks an action $a$ with 100% probability if it's the action that maximises $Q(s,a)$, and 0% probability otherwise. This makes sense because we want to pick the 'most good' action.
 
-**What this means in plain English:** The value of a state is the weighted average of all possible action-values, where the weights are how likely you are to take each action.
+Now that we have a simple policy, how do we estimate the action-value $Q(s,a)$ which is needed for the policy to work? Recall that the agent receives a reward after selecting each action. The **rewards are the key to learning good estimates for the action/state values**. 
 
-**Breaking down the symbols:**
-- $\sum_a$ = "sum over all possible actions" (add them up)
-- $\pi(a|s)$ = probability you'll take action $a$ in state $s$
-- $Q(s, a)$ = value of taking action $a$ in state $s$
+Consider an RL agent in some environment. At time step $t$, the agent is in state $s_t$, takes action $a_t$, receives reward $r_t$, and transitions to the next state $s_{t+1}$. This process continues and is often called an 'episode' or **'trajectory'** $\tau$: $$\tau = s_0, a_0, r_0, s_1, a_1, r_1, s_2, a_2, r_2, ...$$
 
-**Intuition:** If you mostly take good actions (high $Q$ values), the state's overall value $V(s)$ will be high.
+We can define what we call a **return** $G_t$, which is the total reward received from time step $t$ onward:
+$$G_t = \sum_{k=0}^{\infty} r_{t+k}$$
+More commonly, we use a **discounted return** where we multiply future rewards by a discount factor $\gamma$ (between 0 and 1) to make them worth less than immediate rewards:
+$$G_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k}$$
 
-### Check Your Understanding
-- What's the difference between being in a "good state" vs. having a "good action available"?
-- In GridWorld, if you're next to the goal, why would $Q(\text{state}, \text{move to goal})$ be higher than $Q(\text{state}, \text{move away}$)?
-- If $\pi(\text{up}|s) = 1.0$, what does this tell you about your policy in state $s$?
-- What does $\sum_a$ mean in the equation above?
+![Discount Factor Effects](img/discount_factor_visualization.png)
 
-### Questions to Explore Further
-- Why might a stochastic policy sometimes be better than always picking the best known action?
-- How would you compute $V(s)$ if you knew the $Q$ values and policy?
+Using this return, we can define the action-value function in 'general' (theoretically). It's the expected return after taking action $a$ in state $s$:
+$$Q(s,a) = \mathbb{E}[G_t | s_t = s, a_t = a]$$
+
+Math notation breakdown:
+- $\mathbb{E}[G_{t}]$ means "the expected value of $G_t$" - basically the average value of $G_t$ if we knew all the possible values it could take on and how likely each value is. 
+- Literally, the computation is defined as the possible values multiplied by their probabilities: $\mathbb{E}[G_{t}] = \sum_{\text{all possible values } g} g \cdot P(G_t = g)$
+- The vertical bar "|" means "given that" - so we're looking at the expected return $G_t$ given that at time $t$ we were in state $s$ and took action $a$.
+
+Intuition: it makes sense to define action-values as expected returns because we want to choose actions that lead to high total rewards over time. If one action has a higher expected return, that means the action is more likely to lead to better rewards in the long run - so we naturally assign it a high action-value since it's 'good' to choose that action.
+
+We earlier stated that the above formula was 'general' (theoretical). A more concrete example (that still falls under the general equation) is to define the action-value $Q(s,a)$ as the average reward received after taking action $a$ in state $s$. Formally, we can write this as:
+$$Q(s,a) = \frac{\text{total reward when taking action a in state s}}{\text{total number of times action a was taken in state s}} $$
+$$Q(s,a) = \frac{\sum_{t} r_{t} \cdot \mathbf{1}(s_t = s, a_t = a)}{\sum_{t} \mathbf{1}(s_t = s, a_t = a)} $$
+
+Math notation breakdown:
+- $\mathbf{1}(condition)$ is an indicator function that equals 1 if the condition is true, and 0 otherwise.
+- The numerator sums up all rewards $r_t$ received at time steps $t$ where the agent was in state $s$ and took action $a$. Otherwise, the indicator function is 0, so those rewards (for other states) don't count.
+- The denominator counts how many times the agent took action $a$ in state $s$ (just adds 1 to the count every time that happens).
+
+This is called the **sample-average method** of estimating action-values. It works if we're willing to sit around and try every action in every state many times to get good averages. Though you can tell **this is slow**. Note that this is one special case of the general expected return definition above among others.
+
+Finally, you might be wondering why we've talked only about action values, not state values. The answer is that we can always derive state values from action values using the policy:
+$$V(s) = \sum_{a} \pi(a|s) Q(s,a)$$
+Or in more general terms using expectation notation:
+$$V(s) = \mathbb{E}_{a \sim \pi(a|s)}[Q(s,a)]$$
+
+Intuition: It makes sense that the 'total value' for a state $s$ is the sum of the action-values $Q(s,a)$ of all actions you could take in that state. The problem is that you're more likely to take some actions than others. So you weigh each action-value being summed up by the probability of taking that action according to the policy $\pi(a|s)$.
+
+With that, we have SOME concrete definitions (that we could actually implement in python for a basic RL agent). From here, we can explore alternative math equations for action values, state values, and policies that are more powerful than the basic equations we've defined:
+$$Q(s,a) = \mathbb{E}[G_t | s_t = s, a_t = a]$$
+$$V(s) = \sum_{a} \pi(a|s) Q(s,a)$$
+$$\pi(a|s) = 1 \quad \text{if } a=\arg\max_{a'} Q(s, a')$$
+$$ \pi(a|s) = 0 \quad \text{otherwise}$$
 
 ---
 
 ## 2. Exploration vs. Exploitation
 
-**The Central Challenge:** You don't know which actions are good until you try them!
-
-**Two competing strategies:**
-- **Exploitation**: Use what you currently know to get the best reward right now
-  - "Order your favorite dish at a restaurant"
+**The Central Challenge:** The RL agent doesn't know which actions are good until it tries them. Though to get high rewards, it needs to pick good actions. This creates a dilemma:
+- **Exploitation**: Use the rewards currently known to get the best reward right now
+  - Ex: "Order your favorite dish at a restaurant"
 - **Exploration**: Try new things to potentially discover something better
-  - "Try a new dish you've never had before"
+  - Ex: "Try a new dish you've never had before"
 
-**The problem:** If you always exploit, you might miss better options. If you always explore, you never use what you've learned!
-
-RL algorithms need a strategy to balance both.
+**The problem:** If the RL agent always exploits, it might miss better options. If it always explores, it never uses what it's learned! Note that the current greedy policy we've defined always exploits. So let's learn some better policies that balance exploration and exploitation.
 
 ---
 
-### Three Ways to Choose Actions
+### Better Policies
 
 #### 1. Greedy Policy (Pure Exploitation)
 
 **The rule:** Always pick the action with the highest $Q$ value
 
-$$\pi(s) = \arg\max_a Q(s, a)$$
-
-**Notation breakdown:**
-- $\arg\max_a$ = read as "the argument that maximizes" = "whichever action $a$ gives the biggest..."
-- This just means: look at all actions, pick the one with highest $Q(s,a)$
+$$\pi(a|s) = 1 \quad \text{if } a=\arg\max_{a'} Q(s, a')$$
+$$ \pi(a|s) = 0 \quad \text{otherwise}$$
+(Sometimes also denoted more simply as $\mu(s) = \arg\max_a Q(s,a)$ where $\mu$ is used instead of $\pi$ to denote a deterministic policy)
 
 **Example:** If you have 3 actions with $Q$ values [2.0, 5.1, 3.2], always pick action 2 (middle one, highest value)
 
 **Pros:** Simple, uses your knowledge
+
 **Cons:** Never explores - might miss better actions you haven't tried enough!
 
 ---
 
 #### 2. Epsilon-Greedy Policy (Simple Exploration)
 
-**The rule:** With probability $\epsilon$ (epsilon), choose randomly; otherwise be greedy
+**The rule:** With probability $\epsilon$ (epsilon), choose actions randomly; otherwise be greedy
 
 **In plain code:**
 ```
 if random() < epsilon:
     action = random_action()        # Explore!
 else:
-    action = argmax(Q[state, :])    # Exploit!
+    action = argmax(Q[state, a])    # Exploit!
 ```
 
-**Example:** With $\epsilon = 0.1$ (10% exploration):
-- 90% of the time: pick the best known action
-- 10% of the time: pick any action randomly
-
-**The complete formula:**
+The more messy math formula:
 $$\pi(a|s) = \begin{cases} 
 1 - \epsilon + \frac{\epsilon}{|\mathcal{A}|} & \text{if } a = \arg\max_a Q(s,a) \\
 \frac{\epsilon}{|\mathcal{A}|} & \text{otherwise}
 \end{cases}$$
 
-**Don't worry if this looks complicated!** Let's break it down:
+Don't worry if this looks complicated! **You don't need to memorise this formula** - the code version above captures the key idea:
 - $|\mathcal{A}|$ = number of available actions (just a count, like 4 if you can go up/down/left/right)
-- The formula accounts for the fact that even when exploring randomly, you might accidentally pick the best action
-- **You don't need to memorize this formula** - the code version above captures the key idea
+- For the random action, we pick any action with equal probability $\frac{1}{|\mathcal{A}|}$ (ex: 1/4 for 4 actions). Then, we multiply this by $\epsilon$ since we only pick a random action $\epsilon$ percent of the time.
+- For the other action, we add the greedy probability (1 - $\epsilon$) to the random probability ($\frac{\epsilon}{|\mathcal{A}|}$) since we can still randomly pick the greedy action during exploration.
 
-**Common values:** $\epsilon = 0.1$ (10% exploration) or $\epsilon = 0.05$ (5% exploration)
+**Example:** With $\epsilon = 0.1$ (10% exploration):
+- 90% of the time: pick the best known action
+- 10% of the time: pick any action randomly
+
+**Pros:** Simple, easy to implement, more exploration than the greedy policy
+
+**Cons:** Random exploration can be inefficient (might try bad actions too often)
 
 ---
 
 #### 3. Softmax Policy (Probability-Based Exploration)
 
-**The rule:** Better actions are more likely, but all actions have some chance
+**The rule:** Better actions are more likely, but all actions have some non-0, non-uniform chance. We could try:
+$$\pi(a|s) = \frac{Q(s,a)}{\sum_{a'} Q(s,a')}$$
+The problem is that $Q$ values can be negative or zero, which messes up probabilities. Also, small differences in $Q$ values might not be reflected well. Thus, we add an exponential function: 
+$$\pi(a|s) = \frac{e^{Q(s,a)}}{\sum_{a'} e^{Q(s,a')}}$$
+This makes small differences in $Q$ values more pronounced. This will overall make the algorithm exploit more (since the best action will have a much higher probability than the rest). Though to control the level of exploration vs. exploitation, we add a temperature parameter $\tau$ (tau):
 
 $$\pi(a|s) = \frac{e^{Q(s,a)/\tau}}{\sum_{a'} e^{Q(s,a')/\tau}}$$
-
-**Notation breakdown:**
-- $e$ = exponential function (about 2.718...) - makes bigger numbers much bigger
-- $\tau$ = "tau", called "temperature" - controls how random we are
-- $\sum_{a'}$ = sum over all possible actions (the bottom makes probabilities sum to 1)
+If we set it high, differences in $Q$ values matter less since they're divided by a big number. Ie. **Higher temperature = more like selecting random actions = more exploration**. 
 
 **What it does:** Converts $Q$ values into probabilities
-- Action with $Q = 5.0$ gets higher probability than action with $Q = 2.0$
-- But the worse action still has *some* probability (unlike greedy)
-
-**Temperature parameter $\tau$:**
-- High $\tau$ (like 10.0) → more random, all actions have similar probability (more exploration)
-- Low $\tau$ (like 0.1) → more focused, best action dominates (more exploitation)
+- Action with $Q = 5.0$ gets higher probability than action with $Q = 2.0$. Ie. there's exploration like epsilon greedy, but not all actions are equally likely (which could lead to poor actions being selected). 
 
 **Python Example:**
 ```python
@@ -226,62 +202,44 @@ Q = np.array([1.0, 2.5, 0.5])  # Q-values for 3 actions
 action = softmax_policy(Q, temperature=0.5)
 ```
 
-**Example:** With $Q$ values [1.0, 2.5, 0.5] and $\tau = 1.0$:
-- Action 0: ~24% probability
-- Action 1: ~67% probability (highest Q!)
-- Action 2: ~9% probability
-
 ![Policy Comparison](img/epsilon_greedy_vs_softmax.png)
 
 ---
 
-### Check Your Understanding
-- If $\epsilon = 0$, what happens to epsilon-greedy? What if $\epsilon = 1$?
-- In a state with 4 actions, if you use epsilon-greedy with $\epsilon = 0.2$, roughly how often will you pick the best action?
-- If you have Q-values [1.0, 1.0, 1.0] (all the same), what will softmax do?
-- Why is it called a "greedy" policy?
-
 ### Questions to Explore Further
 - When would softmax be better than epsilon-greedy?
-- How would you decay $\epsilon$ over time (start with more exploration, gradually exploit more)?
+- How would you change $\epsilon$ in epsilon-greedy over time to start with more exploration at the start and more exploitation at the end?
 - What happens to softmax as $\tau \to 0$? As $\tau \to \infty$?
 
 ---
 
-## 3. Tabular Methods: Learning Value Functions
+## 3. Tabular Methods to Learn Action-Values
 
-**The Big Idea:** We want to learn $Q(s, a)$ values from experience, not assume we know them
+**The Big Idea:** This section talks about improved ways to learn action/state values. Each subsection describes a different 'class' of RL algorithms that learn action/state values in a different way. 
 
-**"Tabular"** means: we keep a table (like a spreadsheet) with one entry for each state-action pair
+Note: in this part, we only cover 'tabular' methods. "Tabular" means we **keep a table with one entry for each state-action pair**. This works well when there are only a small number of states and actions. Ex: in a simple gridworld with 16 squares and 4 actions (up/down/left/right), we can have a table with 64 entries (16 states x 4 actions).
 
 ---
 
 ### 3.1 Action-Value Methods (Multi-Armed Bandits)
 
-**Simplest case:** One state, multiple actions (like choosing between slot machines)
+**These are the simplest RL algorithms with one state**, multiple actions. As a result, we'll just use $Q(a)$ instead of $Q(s,a)$ in this section since there's only one state.
 
-**Goal:** Learn which action gives the best average reward
+**Goal:** Learn which action gives the best average reward for that one state.
 
-#### Method 1: Simple Averaging
+#### Method 1: Sample Averaging (From Before)
 
-**The idea:** Track the average reward for each action
+Here's the formula again: 
+$$Q(a) = \frac{\sum_{t} r_{t} \cdot \mathbf{1}(s_t = s, a_t = a)}{\sum_{t} \mathbf{1}(s_t = s, a_t = a)} $$
 
-After taking action $a$ and getting rewards $r_1, r_2, ..., r_n$:
-
-$$Q_n(a) = \frac{r_1 + r_2 + ... + r_n}{n}$$
-
-**This just means:** Add up all the rewards you got from action $a$, divide by how many times you tried it
-
-**Incremental form** (easier to compute):
-$$Q_{n+1}(a) = Q_n(a) + \frac{1}{n}[r_{n+1} - Q_n(a)]$$
+This can be rewritten in **incremental form** with some algebra (easier to compute):
+$$Q_{t+1}(a) = Q_t(a) + \frac{1}{t}[r_{t+1} - Q_t(a)]$$
 
 **Notation breakdown:**
-- $Q_n(a)$ = your estimate of $Q(a)$ after $n$ tries
-- $r_{n+1}$ = the new reward you just got
-- $[r_{n+1} - Q_n(a)]$ = error in your estimate (how much you were wrong by)
-- $\frac{1}{n}$ = step size (how much to adjust by)
+- $Q_t(a)$ = your estimate of $Q(a)$ after $t$ steps
+- $r_{t+1}$ = the new reward you just got
 
-**The pattern:** 
+**The pattern** (which we'll see again and again in RL):
 ```
 NewEstimate = OldEstimate + StepSize × [Reward - OldEstimate]
 ```
@@ -293,25 +251,24 @@ NewEstimate = OldEstimate + StepSize × [Reward - OldEstimate]
 
 #### Method 2: Exponentially Weighted Averaging
 
-**The problem with simple averaging:** Old experiences matter just as much as recent ones. What if things change over time?
+**The problem with simple averaging:** Old experiences matter just as much as recent ones. What if the environment changes over time? Ex: We had good rewards from going left in the gridworld, but now we've reached the edge of the gridworld and can't go left anymore. We want a way to give more weight to recent rewards we've been getting.
 
-**The solution:** Use a constant step-size $\alpha$ (alpha):
+**The solution:** Use a constant step-size $\alpha \in (0,1]$:
 
-$$Q_{n+1}(a) = Q_n(a) + \alpha [r_{n+1} - Q_n(a)]$$
+$$Q_{t+1}(a) = Q_t(a) + \alpha [r_{t+1} - Q_t(a)]$$
 
-**What's different:** Instead of $\frac{1}{n}$ (which gets smaller as $n$ grows), we use a fixed $\alpha$ like 0.1
-
+**What's different:** Instead of $\frac{1}{t}$ (which gets smaller as $t$ grows), we use a fixed $\alpha$ like 0.1
 **This is equivalent to:**
-$$Q_{n+1}(a) = (1-\alpha) Q_n(a) + \alpha r_{n+1}$$
+$$Q_{t+1}(a) = (1-\alpha) Q_t(a) + \alpha r_{t+1}$$
 
 **Why "exponential"?** Recent rewards get more weight:
-$$Q_{n+1} = \alpha r_n + \alpha(1-\alpha)r_{n-1} + \alpha(1-\alpha)^2 r_{n-2} + ...$$
+$$Q_{t+1} = \alpha r_t + \alpha(1-\alpha)r_{t-1} + \alpha(1-\alpha)^2 r_{t-2} + ...$$
 
-Notice how older rewards $r_{n-2}, r_{n-3}, ...$ are multiplied by $(1-\alpha)^2, (1-\alpha)^3, ...$ which gets smaller and smaller.
+Notice how older rewards $r_{t-2}, r_{t-3}, ...$ are multiplied by $(1-\alpha)^2, (1-\alpha)^3, ...$ which gets smaller and smaller.
 
 **When to use each:**
-- **Simple averaging** ($\frac{1}{n}$): When true values don't change (stationary problems)
-- **Exponential** ($\alpha$): When true values can change over time (non-stationary problems)
+- **Simple averaging**: When the environment doesn't change (stationary problems) so you can have fixed action-value estimates.
+- **Exponential** ($\alpha$): When the environment can change over time (non-stationary problems) so you need to adapt your action-value estimates.
 
 ![Averaging Methods Comparison](img/averaging_comparison.png)
 
@@ -320,6 +277,7 @@ Notice how older rewards $r_{n-2}, r_{n-3}, ...$ are multiplied by $(1-\alpha)^2
 ---
 
 #### Pseudocode: Epsilon-Greedy Bandit
+(Note that this is a real RL algorithm for single-state problems - its features are an epsilon-greedy policy with Q-value updates using either simple or exponential averaging)
 
 ```
 Initialize:
@@ -393,61 +351,17 @@ plt.show()
 
 ### Check Your Understanding
 - If you've tried action $a$ five times and got rewards [2, 3, 2, 4, 1], what is $Q_5(a)$ using simple averaging?
-- Using the same rewards, what does the $(1-\alpha)$ term represent in exponential averaging?
 - If $\alpha = 0.5$ and your current estimate is $Q = 2$, and you get reward $r = 4$, what's your new estimate?
-- In the pseudocode, what happens when $N[action] = 0$ for simple averaging? Why might this be a problem?
-
-### Questions to Explore Further  
-- Why does exponential averaging give more weight to recent rewards?
-- When would you prefer simple averaging over exponential averaging?
+- In the pseudocode, what happens when an action hasn't been taken before for simple averaging? Why might this be a problem?
 - How would you choose a good value for $\alpha$?
-
----
 
 ---
 
 ### 3.2 Temporal Difference (TD) Methods
 
-**Moving beyond bandits:** Now we have multiple states! Actions move us between states.
+ This is a **more advanced class of RL algorithms that can work in environments with multiple states**! Ex: the gridworld task we saw earlier. We again use the $Q(s,a)$ notation for action-values and $V(s)$ for state-values.
 
-**Key Idea:** Use estimates to update estimates (called "bootstrapping")
-
----
-
-#### The Discounted Return
-
-**The problem:** Should we care equally about rewards 1 step away vs. 100 steps away?
-
-**The solution:** Discount future rewards - make them worth less
-
-$$G_t = r_t + \gamma r_{t+1} + \gamma^2 r_{t+2} + \gamma^3 r_{t+3} + ...$$
-
-**Notation breakdown:**
-- $G_t$ = "return" from time $t$ (total discounted reward)
-- $r_t$ = immediate reward
-- $\gamma$ = "gamma", the discount factor (a number between 0 and 1)
-- $\gamma^2, \gamma^3, ...$ = discount multipliers that get smaller for distant rewards
-
-**More compact notation:**
-$$G_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k}$$
-
-This just means: add up all future rewards, but multiply each one by $\gamma^k$ where $k$ is how many steps in the future it is.
-
-**What $\gamma$ does:**
-- $\gamma = 0$: Only care about immediate reward (shortsighted!)
-- $\gamma = 0.9$: Reward 10 steps away is worth $0.9^{10} \approx 0.35$ times as much
-- $\gamma = 0.99$: Common practical value - cares about future but still discounts
-- $\gamma = 1$: All future rewards equally important (can cause problems with infinite horizons)
-
-**Example:** Say you get rewards [1, 2, 3] over the next 3 steps, with $\gamma = 0.9$
-$$G = 1 + 0.9 \times 2 + 0.9^2 \times 3 = 1 + 1.8 + 2.43 = 5.23$$
-
-**Why discount?**
-1. Models uncertainty (future is less certain)
-2. Mathematically convenient (infinite sums converge)
-3. Matches human preferences (we prefer rewards sooner)
-
-![Discount Factor Effects](img/discount_factor_visualization.png)
+There's now a problem with using the sample-average or exponential average methods to learn action-values. We're **unlikely to get many samples of each action in each state since there isn't just one state anymore!** So we need to be more 'sample-efficient' than simply averaging rewards for each state-action pair and waiting to get an accurate average by collecting many samples.
 
 ---
 
