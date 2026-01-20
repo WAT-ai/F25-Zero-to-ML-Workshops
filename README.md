@@ -305,7 +305,7 @@ Let's practice the complete workflow of making changes and sharing them by addin
    cd F25-Zero-to-ML-Workshops
    git remote -v  # Should show 'origin' pointing to your fork
    git remote add upstream https://github.com/WAT-ai/F25-Zero-to-ML-Workshops.git  # Add the original repo under the name 'upstream' (instead of our usual name 'origin')
-   git pull upstream workshop-2  # Get the latest changes from the original repo
+   git pull upstream jokes  # Get the latest changes from the original repo
    ```
 
 3. **Create a new feature branch:**
@@ -345,8 +345,8 @@ Let's practice the complete workflow of making changes and sharing them by addin
 
 9. **Update your local repository after your PR is merged:**
    ```bash
-   git checkout workshop-2  # Or main, as appropriate
-   git pull upstream workshop-2  # Get the latest changes from the original repo
+   git checkout jokes  # Or main, as appropriate
+   git pull upstream jokes  # Get the latest changes from the original repo
    git branch -d feat/jokes-[firstname]-[lastinitial]  # Delete your local branch
    ```
 
