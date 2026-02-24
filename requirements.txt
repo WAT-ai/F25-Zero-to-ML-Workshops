@@ -11,3 +11,4 @@ newspaper3k
 listparser
 lxml-html-clean 
 tqdm
+pandas
