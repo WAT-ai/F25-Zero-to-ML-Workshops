@@ -40,7 +40,7 @@ source numpy-env/bin/activate  # On Windows: numpy-env\Scripts\activate
 ### Step 2: Install Dependencies
 ```bash
 # Install NumPy, Jupyter, and other dependencies
-pip install numpy pandas matplotlib jupyter
+pip install -r requirements.txt
 ```
 
 ### Step 4: Open the NumPy Notebooks
