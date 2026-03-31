@@ -10,8 +10,8 @@ Reinforcement Learning (RL) is how agents learn to make decisions by interacting
 
 - **Exploration vs Exploitation**: The core trade-off in RL, via the multi-armed bandit
 - **Q-Learning**: Off-policy temporal difference control on FrozenLake
-- **SARSA**: On-policy TD control and how it differs from Q-Learning
-- **Policy Visualisation**: Inspect what your agent has actually learned
+- **Deep Q-Networks (DQN)**: Replace the Q-table with a neural network to handle continuous state spaces
+- **Policy & Value Visualisation**: Inspect the learned policy and state-value function V(s)
 - **Gymnasium**: The standard Python library for RL environments
 
 ### Workshop Structure
@@ -21,9 +21,9 @@ Reinforcement Learning (RL) is how agents learn to make decisions by interacting
    - Bellman equations and value functions
    - Overview of tabular RL methods
 2. **Notebook**: Implementing RL algorithms
-   - **Part 1** — Multi-Armed Bandit (30 min): epsilon-greedy exploration
-   - **Part 2** — Q-Learning on FrozenLake (45 min): tabular Q-learning with decaying epsilon
-   - **Part 3** — SARSA vs Q-Learning on CliffWalking (15 min): on-policy vs off-policy comparison
+   - **Part 1** — Multi-Armed Bandit: epsilon-greedy exploration
+   - **Part 2** — Q-Learning on FrozenLake: tabular Q-learning with decaying epsilon, policy & value visualisation, slippery ice variant
+   - **Part 3** — Deep Q-Network on CartPole: neural network as Q-function, replay buffer, target network
 
 ## Setup Instructions
 
@@ -37,6 +37,7 @@ source rl-env/bin/activate  # On Windows: rl-env\Scripts\activate
 ### Step 2: Install Dependencies
 ```bash
 pip install numpy matplotlib jupyter gymnasium torch
+
 ```
 
 Then open the `rl_workshop.ipynb` notebook.
@@ -59,14 +60,15 @@ Then open the `rl_workshop.ipynb` notebook.
 - Try increasing `n_episodes` — some environments need more training
 - Verify epsilon is decaying and not staying at 1.0
 
-**Q-Learning and SARSA look the same**
-- Make sure SARSA uses `Q[next_state, next_action]` (actual next action) not `max Q[next_state]`
+**DQN not learning / loss exploding**
+- Check your replay buffer sampling — ensure you're sampling random batches, not sequential transitions
+- Verify the target network is updated periodically, not every step
+- Try reducing the learning rate or clipping gradients
 
 ### Next Steps
 After this workshop, you'll be ready to:
-- Explore Deep Q-Networks (DQN), which replace the Q-table with a neural network
-- Learn about policy gradient methods and actor-critic algorithms
-- Try more Gymnasium environments: `CartPole-v1`, `MountainCar-v0`, `LunarLander-v3`
+- Learn about policy gradient methods and actor-critic algorithms (used in RLHF for LLMs)
+- Try more Gymnasium environments: `MountainCar-v0`, `LunarLander-v3`, Atari games
 
 ## When You're Done
 
