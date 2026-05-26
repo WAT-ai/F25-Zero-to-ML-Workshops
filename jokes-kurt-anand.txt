@@ -1,0 +1,4 @@
+Boss: Your performance was subpar
+Employee: So was my pay
+Boss: Okay, so I will increase your pay. Will your performance improve then?
+Employee: Let's take it one step at a time, yeah?
