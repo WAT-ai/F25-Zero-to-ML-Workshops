@@ -36,32 +36,29 @@ Laugh at the others who have to do 'setup' and 'installation' and 'workarounds'.
 ## Usage
 To get started, install this repository by running the following command in your CLI. It downloads all the files from the Github repository into a folder (directory) on your computer.
 
+This is a branch to submit your first pull request. Steps: 
+1. Fork this repository by visiting [the main Github page for this repo](https://github.com/WAT-ai/F25-Zero-to-ML-Workshops) and clicking the Fork button on the top right. 
+2. Wait for Github to take you to your forked repository. Then, clone it by running
 ```bash
-git clone https://github.com/WAT-ai/F25-Zero-to-ML-Workshops.git
-``` 
-
-Next, you need to 'open' the downloaded folder (directory). In the past, you've done this with 'file explorer' applications. Now, you'll do it with the change directory (cd) command in the CLI. To open the downloaded directory, run: 
-
-```bash
-cd F25-Zero-to-ML-Workshops
+git clone <forked-repo-url>
 ```
-
-Finally, you're ready to start the first workshop! We've organised different workshops' content in different 'branches' of this repository. These are basically like different 'versions' of the folder you've downloaded. You can switch between (AKA 'check out') different branches by entering the following command in your CLI:
-
+3. Switch to the `jokes` branch in your cloned repository by running: 
 ```bash
-git checkout <branch-name>
+git checkout jokes
 ```
-
-We'll learn more about branches soon. For now, know that you can open the first workshop by running:
-
+4. Create a file called `<firstname>-<lastinitial>.txt` and add a joke to it using `nano`: 
 ```bash
-git checkout workshop-1
+nano <firstname>-<lastinitial>.txt
 ```
-
-You can also come back to this main branch by running:
-
+5. Save and exit nano (Ctrl+O, Enter, Ctrl+X).
+6. Commit and push your changes: 
 ```bash
-git checkout main
+git add <firstname>-<lastinitial>.txt
+git commit -m "Added a joke"
+git push origin jokes
 ```
+7. To create a pull request, go to your forked repository website on Github. You should see a "Compare & pull request" button on the top right. Click it.
+8. Add a description of your changes and click "Create pull request".
+9. Make sure you target the `jokes` branch of the original repository and your forked repository (not `main`).
 
-We'll see you at the first workshop soon!
+**Note:** this pull request seems trivial. In real life, you could fork open-source projects and make more substantial changes like new features or bug fixes. This is just a simple exercise to get you familiar with the process of contributing to open-source projects on GitHub. Remember - the **key steps are fork, clone, create a branch, make changes, commit, push, and create a pull request.**
